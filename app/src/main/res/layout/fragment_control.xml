@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.ui.ControlFragment">
+
+    <!-- TOOLBAR -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="16dp"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:menu="@menu/menu_control"
+        app:title="@string/toolbar"
+        app:titleTextColor="@color/white"
+        app:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/ToolbarPopupTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <!-- SCROLLVIEW CONTAINER -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollerId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/separatorView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="16dp">
+
+            <!-- GRID: Back, Power, Home -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridMainControls"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:columnCount="3"
+                app:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- BACK -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/arrow_back"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- POWER -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPower"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/power_off"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@color/white"
+                    app:rippleColor="#FFFFFF33"
+                    app:layout_columnWeight="1" />
+
+                <!-- HOME -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHome"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/home_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <!-- GRID: Volume Down, Mute, Volume Up -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridVolumeControls"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:columnCount="3"
+                app:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gridMainControls">
+
+                <!-- VOLUME DOWN -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVolumeDown"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/volume_down_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- MUTE -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMute"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/no_sound_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- VOLUME UP -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVolumeUp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/volume_up_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <!-- D-PAD NAVIGATION  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dpadContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_dpad_card"
+                android:padding="20dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gridVolumeControls"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintWidth_percent="0.75">
+
+                <!-- UP -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUp"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/up"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:layout_constraintDimensionRatio="3:2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.38"
+                    />
+
+                <!-- LEFT -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLeft"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/left"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="2:3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.28"
+                    />
+
+                <!-- RIGHT -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRight"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/right"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="2:3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.28"
+                    />
+
+                <!-- DOWN -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDown"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/down"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="3:2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.38"
+                    />
+
+                <!-- OK BUTTON -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOk"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/ok"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="100dp"
+                    app:elevation="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.35" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- GRID: Replay, Sleep, Star -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridExtras"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:columnCount="3"
+                app:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dpadContainer">
+
+                <!-- REPLAY -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReplay"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/reload_ic"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- SLEEP -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSleep"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/brightness_3_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- STAR -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStar"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="27dp"
+                    app:icon="@drawable/brightness_empty_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <!-- GRID: Rewind, Play, Forward -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridPlayback"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="12dp"
+                app:columnCount="3"
+                app:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gridExtras"
+                tools:ignore="MissingClass">
+
+                <!-- REWIND -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRewind"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/fast_rewind_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+                <!-- PLAY -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPlay"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/play_pause_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@color/white"
+                    app:rippleColor="#FFFFFF33"
+                    app:layout_columnWeight="1" />
+
+                <!-- FORWARD -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnForward"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/fast_forward_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="#AAAAAA"
+                    app:rippleColor="?attr/colorPrimary"
+                    app:strokeColor="#252525"
+                    app:strokeWidth="1dp"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <View
+        android:id="@+id/separatorView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#1F1F1F"
+        app:layout_constraintBottom_toTopOf="@id/channelsContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/channelsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:background="@color/background_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerChannels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="8"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_channel"
+            tools:spanCount="2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

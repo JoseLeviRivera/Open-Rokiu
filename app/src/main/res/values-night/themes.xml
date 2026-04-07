@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Rokiu" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.Rokiu" parent="Base.Theme.Rokiu"/>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="RoundedDialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.7</item>
+    </style>
+    <!-- Estilo personalizado para el Toolbar -->
+    <style name="ToolbarTheme" parent="ThemeOverlay.Material3.ActionBar">
+        <!-- Color del título -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Color de los iconos del menú (incluyendo overflow) -->
+        <item name="colorControlNormal">@color/white</item>
+        <!-- Color al presionar -->
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
+    <!-- Estilo para el popup del menú overflow -->
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.Material3.Dark">
+        <!-- Fondo del popup -->
+        <item name="android:colorBackground">@color/card_background</item>
+        <!-- Color del texto -->
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+</resources>

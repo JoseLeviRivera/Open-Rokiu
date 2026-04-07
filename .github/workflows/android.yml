@@ -1,0 +1,117 @@
+name: Android CI - Build APK
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: gradle
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x gradlew
+
+      - name: Create keystore directory
+        run: mkdir -p ${{ github.workspace }}/.android
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/.android/release.jks
+          chmod 600 ${{ github.workspace }}/.android/release.jks
+          ls -la ${{ github.workspace }}/.android/
+
+      - name: Clean project
+        run: ./gradlew clean
+
+      - name: Build Release APK
+        env:
+          KEYSTORE_FILE: ${{ github.workspace }}/.android/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASS }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASS }}
+        run: |
+          echo "Keystore path: $KEYSTORE_FILE"
+          ls -la ${{ github.workspace }}/.android/
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Build Release AAB
+        env:
+          KEYSTORE_FILE: ${{ github.workspace }}/.android/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASS }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASS }}
+        run: ./gradlew bundleRelease --stacktrace
+
+      - name: Verify APK signature
+        run: |
+          APK_PATH="app/build/outputs/apk/release/app-release.apk"
+          ${ANDROID_HOME}/build-tools/35.0.0/apksigner verify --verbose --print-certs "$APK_PATH" || true
+          echo "=== APK Info ==="
+          ls -lh "$APK_PATH"
+          ${ANDROID_HOME}/build-tools/35.0.0/aapt dump badging "$APK_PATH" | grep "package:"
+          echo "APK verification completed"
+
+      - name: Generate SHA256
+        run: |
+          cd app/build/outputs/apk/release
+          sha256sum app-release.apk > app-release.apk.sha256
+          cat app-release.apk.sha256
+          cd ${{ github.workspace }}/app/build/outputs/bundle/release
+          sha256sum app-release.aab > app-release.aab.sha256
+          cat app-release.aab.sha256
+
+      - name: Cleanup keystore
+        if: always()
+        run: rm -rf ${{ github.workspace }}/.android/
+
+      - name: Upload build artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: |
+            app/build/reports/
+            app/build/outputs/logs/
+
+      - name: Create Release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
+          body: |
+            ## 📦 Release v1.0.${{ github.run_number }}
+            
+            ### 📱 Files
+            - **APK**: `app-release.apk` - For direct installation
+            - **AAB**: `app-release.aab` - For Google Play Store
+            - **SHA256**: Checksums for verification
+            
+            ### ✅ Build Info
+            - Commit: ${{ github.sha }}
+            - Branch: ${{ github.ref_name }}
+            - Workflow: ${{ github.run_number }}
+          files: |
+            app/build/outputs/apk/release/app-release.apk
+            app/build/outputs/apk/release/app-release.apk.sha256
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/outputs/bundle/release/app-release.aab.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
